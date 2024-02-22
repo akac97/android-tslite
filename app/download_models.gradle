@@ -1,7 +1,7 @@
-task downloadModelFile(type: Download) {
-    src 'https://storage.googleapis.com/download.tensorflow.org/models/tflite/task_library/object_detection/android/lite-model_ssd_mobilenet_v1_1_metadata_2.tflite'
+task downloadEfficientNetB7(type: Download) {
+    src 'https://storage.googleapis.com/tfhub-modules/tensorflow/efficientnet/b7/classification/1.tar.gz'
     dest project.ext.ASSET_DIR + '/mobilenetv1.tflite'
-    overwrite false
+    overwrite true
 }
 
 task downloadModelFile0(type: Download) {
@@ -22,10 +22,9 @@ task downloadModelFile2(type: Download) {
     overwrite false
 }
 
-task copyTestModel(type: Copy, dependsOn: downloadModelFile) {
+task copyTestModel(type: Copy, dependsOn: downloadEfficientNetB7) {
     from project.ext.ASSET_DIR + '/mobilenetv1.tflite'
     into project.ext.TEST_ASSETS_DIR
 }
 
-preBuild.dependsOn downloadModelFile, downloadModelFile0, downloadModelFile1, downloadModelFile2,
-        copyTestModel
+preBuild.dependsOn downloadEfficientNetB7, downloadModelFile0, downloadModelFile1, downloadModelFile2, copyTestModel
